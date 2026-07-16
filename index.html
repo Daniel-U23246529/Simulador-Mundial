@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mundial de Clubes 2026</title>
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+
+<header class="header">
+    <div class="header__title">
+        <h1>Mundial de Clubes 2026</h1>
+    </div>
+    <p class="header__subtitle">4 grupos · 16 países </p>
+    <hr class="header__divider" />
+    <!-- Navegación principal -->
+    <nav class="nav">
+        <button class="nav__btn nav__btn--active" data-view="groups">Grupos</button>
+        <button class="nav__btn" data-view="knockout">Eliminatorias</button>
+    </nav>
+</header>
+
+
+<main class="main">
+
+    <!-- ---- VISTA: TODOS LOS GRUPOS ---- -->
+    <section id="view-groups" class="view view--active">
+        <div class="groups-grid">
+   
+            <div class="group-card" data-group="A">
+                <h2 class="group-card__title">GRUPO A</h2>
+                <ul class="group-card__list" id="summary-A"></ul>
+            </div>
+          
+            <div class="group-card" data-group="B">
+                <h2 class="group-card__title">GRUPO B</h2>
+                <ul class="group-card__list" id="summary-B"></ul>
+            </div>
+     
+            <div class="group-card" data-group="C">
+                <h2 class="group-card__title">GRUPO C</h2>
+                <ul class="group-card__list" id="summary-C"></ul>
+            </div>
+        
+            <div class="group-card" data-group="D">
+                <h2 class="group-card__title">GRUPO D</h2>
+                <ul class="group-card__list" id="summary-D"></ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ---- DETALLE DE GRUPO ---- -->
+    <section id="view-group-detail" class="view">
+        <button class="btn-back" id="btn-back-groups">← Todos los grupos</button>
+        <h2 class="group-detail__title" id="group-detail-title">Grupo A</h2>
+
+        <div class="group-detail__layout">
+            <!-- Partidos por fecha -->
+            <div class="matches-column" id="matches-container"></div>
+
+            <!-- Tabla de posiciones -->
+            <div class="standings-column">
+                <div class="standings-card">
+                    <h3 class="standings-card__title">POSICIONES</h3>
+                    <table class="standings-table">
+                        <thead>
+                        <tr>
+                            <th class="col-country">País</th>
+                            <th>PJ</th>
+                            <th>PG</th>
+                            <th>PE</th>
+                            <th>PP</th>
+                            <th>GF</th>
+                            <th>GC</th>
+                            <th>DG</th>
+                            <th>Pts</th>
+                        </tr>
+                        </thead>
+                        <tbody id="standings-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ---- VISTA: ELIMINATORIAS ---- -->
+    <section id="view-knockout" class="view">
+
+        <!-- Cuartos de final -->
+        <h2 class="knockout-stage__title">CUARTOS DE FINAL</h2>
+        <div class="knockout-grid knockout-grid--quarters" id="quarters-container"></div>
+
+        <!-- Semifinales -->
+        <h2 class="knockout-stage__title">SEMIFINALES</h2>
+        <div class="knockout-grid knockout-grid--semis" id="semis-container"></div>
+
+        <!-- Final y 3er puesto -->
+        <h2 class="knockout-stage__title">FINA &amp; 3ER PUESTO</h2>
+        <div class="knockout-grid knockout-grid--final" id="final-container"></div>
+
+    </section>
+
+</main>
+
+<div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+        <h3 class="modal__title">Ingresar resultado</h3>
+        <p class="modal__subtitle" id="modal-subtitle">Fecha 1 · Grupo A</p>
+
+        <div class="modal__teams">
+            <div class="modal__team">
+                <span class="modal__team-code" id="modal-home-code">MX</span>
+                <span class="modal__team-name" id="modal-home-name">México</span>
+            </div>
+            <span class="modal__vs">vs</span>
+            <div class="modal__team">
+                <span class="modal__team-code" id="modal-away-code">ZA</span>
+                <span class="modal__team-name" id="modal-away-name">Sudáfrica</span>
+            </div>
+        </div>
+
+        <div class="modal__score">
+            <input class="modal__score-input" type="number" min="0" id="modal-home-score" value="0" />
+            <span class="modal__score-dash">–</span>
+            <input class="modal__score-input" type="number" min="0" id="modal-away-score" value="0" />
+        </div>
+
+        <div class="modal__actions">
+            <button class="btn btn--secondary" id="modal-cancel">Cancelar</button>
+            <button class="btn btn--primary" id="modal-save">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<div class="watermark">
+    <span class="watermark__label">Autores:</span>
+    <span>Carlos Daniel Pinpinco Quiroz</span>
+    <span>Jose Luis Laguna Lavado</span>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/groups.js"></script>
+<script src="js/knockout.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,739 @@
+
+@use 'sass:color';
+
+$bg-primary:    #111111;
+$bg-card:       #1e1e1e;
+$bg-card-hover: #252525;
+$bg-input:      #2a2a2a;
+$bg-modal:      #1e1e1e;
+
+$border-color:  #333333;
+$border-radius: 12px;
+$border-radius-sm: 8px;
+
+$text-primary:  #ffffff;
+$text-secondary:#a0a0a0;
+$text-code:     #cccccc;
+
+$accent-green:  #4caf84;
+$accent-blue:   #5b9cf6;
+
+$font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+
+
+// RESET & BASE
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  background-color: $bg-primary;
+  color: $text-primary;
+  font-family: $font-family;
+  min-height: 100vh;
+  padding-bottom: 60px;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  background: none;
+}
+
+input[type="number"] {
+  font-family: inherit;
+
+  // Ocultar flechas en Chrome/Safari
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  // Ocultar flechas en Firefox
+  -moz-appearance: textfield;
+}
+
+// ===================================================
+// LAYOUT
+// ===================================================
+.main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+// ===================================================
+// HEADER
+// ===================================================
+.header {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 20px 0;
+  text-align: center;
+
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+  }
+
+  &__emoji {
+    font-size: 1.8rem;
+  }
+
+  &__subtitle {
+    color: $text-secondary;
+    font-size: 0.9rem;
+    margin-top: 4px;
+  }
+
+  &__divider {
+    border: none;
+    border-top: 1px solid $border-color;
+    margin: 20px 0;
+  }
+}
+
+// ===================================================
+// NAVEGACIÓN PRINCIPAL
+// ===================================================
+.nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 28px;
+
+  &__btn {
+    padding: 14px 0;
+    border: 1.5px solid $border-color;
+    border-radius: $border-radius;
+    color: $text-secondary;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    background-color: transparent;
+
+    &:hover {
+      border-color: color.adjust($border-color, $lightness: 15%);
+      color: $text-primary;
+    }
+
+    &--active {
+      border-color: $text-primary;
+      color: $text-primary;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+  }
+}
+
+// ===================================================
+// VISTAS (show/hide)
+// ===================================================
+.view {
+  display: none;
+
+  &--active {
+    display: block;
+  }
+}
+
+// ===================================================
+// VISTA: TODOS LOS GRUPOS
+// ===================================================
+.groups-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.group-card {
+  background-color: $bg-card;
+  border-radius: $border-radius;
+  padding: 20px;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: $bg-card-hover;
+    border-color: $border-color;
+  }
+
+  &__title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: $text-secondary;
+    margin-bottom: 14px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+// Item dentro de la tarjeta del grupo (vista resumen)
+.group-team-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &__position {
+    color: $text-secondary;
+    font-size: 0.85rem;
+    width: 14px;
+    flex-shrink: 0;
+  }
+
+  &__code {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: $text-secondary;
+    width: 24px;
+    flex-shrink: 0;
+    text-transform: uppercase;
+  }
+
+  &__name {
+    flex: 1;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  &__pts {
+    font-size: 0.85rem;
+    color: $text-secondary;
+    font-weight: 400;
+  }
+
+  &--qualified {
+    .group-team-item__name {
+      color: $accent-green;
+    }
+  }
+}
+
+// ===================================================
+// VISTA: DETALLE DE GRUPO
+// ===================================================
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background-color: $bg-card;
+  border: 1.5px solid $border-color;
+  border-radius: $border-radius-sm;
+  color: $text-primary;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: $bg-card-hover;
+    border-color: color.adjust($border-color, $lightness: 15%);
+  }
+}
+
+.group-detail {
+  &__title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+
+  &__layout {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 20px;
+    align-items: start;
+
+    @media (max-width: 700px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// ---- Columna de partidos ----
+.matches-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.date-block {
+  &__label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: $text-secondary;
+    margin-bottom: 10px;
+  }
+
+  &__matches {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.match-card {
+  background-color: $bg-card;
+  border-radius: $border-radius-sm;
+  padding: 14px 16px;
+  border: 1.5px solid $border-color;
+
+  &__teams {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+  }
+
+  &__team {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    &-code {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: $text-secondary;
+      text-transform: uppercase;
+    }
+
+    &-name {
+      font-weight: 500;
+    }
+  }
+
+  &__vs {
+    color: $text-secondary;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  &__score {
+    font-size: 1rem;
+    font-weight: 700;
+    color: $accent-blue;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  &__btn {
+    width: 100%;
+    padding: 10px;
+    border: 1.5px solid $border-color;
+    border-radius: $border-radius-sm;
+    color: $text-primary;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    background-color: transparent;
+
+    &:hover {
+      background-color: $bg-input;
+      border-color: color.adjust($border-color, $lightness: 15%);
+    }
+
+    &--played {
+      border-color: $accent-blue;
+      color: $accent-blue;
+    }
+  }
+}
+
+// ---- Columna de posiciones ----
+.standings-column {
+  position: sticky;
+  top: 20px;
+}
+
+.standings-card {
+  background-color: $bg-card;
+  border-radius: $border-radius;
+  padding: 18px;
+  border: 1.5px solid $border-color;
+
+  &__title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: $text-secondary;
+    margin-bottom: 14px;
+  }
+}
+
+.standings-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+
+  th {
+    color: $text-secondary;
+    font-weight: 600;
+    text-align: center;
+    padding: 4px 4px 8px;
+    font-size: 0.72rem;
+
+    &.col-country {
+      text-align: left;
+      padding-left: 0;
+    }
+  }
+
+  td {
+    text-align: center;
+    padding: 8px 4px;
+    border-top: 1px solid $border-color;
+
+    &.col-country {
+      text-align: left;
+      padding-left: 0;
+    }
+  }
+
+  // Separador de clasificados vs no clasificados
+  tr:nth-child(2) td {
+    border-bottom: 2px dashed rgba($accent-green, 0.4);
+  }
+
+  // Fila destacada (1er y 2do puesto)
+  .row-qualified {
+    background-color: rgba($accent-green, 0.05);
+  }
+}
+
+.standings-team {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  &__code {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: $text-secondary;
+    text-transform: uppercase;
+    width: 20px;
+  }
+
+  &__name {
+    font-weight: 500;
+  }
+
+  &__check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    background-color: rgba($accent-green, 0.2);
+    border: 1.5px solid $accent-green;
+    font-size: 0.6rem;
+    color: $accent-green;
+  }
+}
+
+// ===================================================
+// VISTA: ELIMINATORIAS
+// ===================================================
+.knockout-stage {
+  &__title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: $text-secondary;
+    margin: 28px 0 14px;
+  }
+}
+
+.knockout-grid {
+  display: grid;
+  gap: 14px;
+
+  &--quarters {
+    grid-template-columns: repeat(3, 1fr);
+
+    @media (max-width: 650px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 420px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &--semis {
+    grid-template-columns: 1fr 1fr;
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &--final {
+    grid-template-columns: 1fr 1fr;
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.knockout-card {
+  background-color: $bg-card;
+  border-radius: $border-radius-sm;
+  padding: 14px 16px;
+  border: 1.5px solid $border-color;
+
+  &__label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: $text-secondary;
+    margin-bottom: 12px;
+  }
+
+  &__match {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  &__team {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    font-weight: 500;
+
+    &-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    &-code {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: $text-secondary;
+      text-transform: uppercase;
+    }
+
+    &-score {
+      font-weight: 700;
+      color: $text-secondary;
+      min-width: 16px;
+      text-align: right;
+    }
+
+    &--winner {
+      .knockout-card__team-name {
+        color: $accent-green;
+      }
+
+      .knockout-card__team-score {
+        color: $accent-green;
+      }
+    }
+  }
+
+  &__btn {
+    width: 100%;
+    padding: 8px;
+    border: 1.5px solid $border-color;
+    border-radius: $border-radius-sm;
+    color: $text-primary;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    background-color: transparent;
+
+    &:hover {
+      background-color: $bg-input;
+    }
+
+    &--played {
+      border-color: $accent-blue;
+      color: $accent-blue;
+    }
+  }
+
+  // Tarjeta especial para la gran final
+  &--final {
+    border-color: rgba(#f0c040, 0.4);
+
+    .knockout-card__label {
+      color: #f0c040;
+    }
+  }
+}
+
+// ===================================================
+// MODAL
+// ===================================================
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+
+  &--active {
+    display: flex;
+  }
+}
+
+.modal {
+  background-color: $bg-modal;
+  border-radius: $border-radius;
+  padding: 28px 24px;
+  width: 90%;
+  max-width: 360px;
+  border: 1.5px solid $border-color;
+
+  &__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  &__subtitle {
+    font-size: 0.85rem;
+    color: $text-secondary;
+    margin-bottom: 24px;
+  }
+
+  &__teams {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  &__team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+
+    &-code {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    &-name {
+      font-size: 0.85rem;
+      color: $text-secondary;
+    }
+  }
+
+  &__vs {
+    color: $text-secondary;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0 10px;
+  }
+
+  &__score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  &__score-input {
+    width: 90px;
+    height: 56px;
+    background-color: $bg-input;
+    border: 1.5px solid $border-color;
+    border-radius: $border-radius-sm;
+    color: $text-primary;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: center;
+    transition: border-color 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: $accent-blue;
+    }
+  }
+
+  &__score-dash {
+    color: $text-secondary;
+    font-size: 1.2rem;
+    font-weight: 300;
+  }
+
+  &__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+}
+
+// ===================================================
+// BOTONES GENÉRICOS
+// ===================================================
+.btn {
+  padding: 13px;
+  border-radius: $border-radius-sm;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+
+  &--primary {
+    background-color: $text-primary;
+    color: $bg-primary;
+
+    &:hover {
+      background-color: color.adjust($text-primary, $lightness: -10%);
+    }
+  }
+
+  &--secondary {
+    background-color: transparent;
+    border: 1.5px solid $border-color;
+    color: $text-primary;
+
+    &:hover {
+      background-color: $bg-input;
+    }
+  }
+}
