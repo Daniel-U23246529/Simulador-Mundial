@@ -1,5 +1,5 @@
 
-// DATA.JS — Estructura de datos del torneo
+// Estructura de datos del torneo
 
 
 const TOURNAMENT = {
