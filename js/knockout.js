@@ -1,6 +1,3 @@
-// ===================================================
-// KNOCKOUT.JS — Lógica y renderizado de eliminatorias
-// ===================================================
 
 /** Actualiza los equipos de cuartos según los clasificados de los grupos */
 function updateKnockoutTeams() {
@@ -14,7 +11,7 @@ function updateKnockoutTeams() {
         q[`2${g}`] = standings[1] || null;
     });
 
-    // Cuartos: 1A vs 2B, 1B vs 2A, 1C vs 2D, 1D vs 2C
+    // Cuartos
     const quarterPairs = [
         ['1A', '2B'],
         ['1B', '2A'],
@@ -23,12 +20,12 @@ function updateKnockoutTeams() {
     ];
 
     quarterPairs.forEach(([homeKey, awayKey], i) => {
-        // Solo actualizar si no hay resultado aún (no sobreescribir equipo cambiado)
+    
         ko.quarters[i].home = q[homeKey];
         ko.quarters[i].away = q[awayKey];
     });
 
-    // Semis: ganador Q1 vs Q2, ganador Q3 vs Q4
+
     [0, 1].forEach(i => {
         const q1 = ko.quarters[i * 2];
         const q2 = ko.quarters[i * 2 + 1];
@@ -61,7 +58,7 @@ function placeholder(label) {
     return { code: '⚙', name: label };
 }
 
-// ---- Render: vista de eliminatorias completa ----
+// ----  vista de eliminatorias completa ----
 function renderKnockout() {
     updateKnockoutTeams();
 
