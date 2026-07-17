@@ -32,9 +32,7 @@ navBtns.forEach(btn => {
     });
 });
 
-// ===================================================
-// CLIC EN TARJETA DE GRUPO → ir al detalle
-// ===================================================
+// CLIC EN TARJETA DE GRUPO
 document.querySelectorAll('.group-card').forEach(card => {
     card.addEventListener('click', () => {
         const groupKey = card.dataset.group;
@@ -44,17 +42,15 @@ document.querySelectorAll('.group-card').forEach(card => {
     });
 });
 
-// ===================================================
+
 // BOTÓN "TODOS LOS GRUPOS"
-// ===================================================
+
 document.getElementById('btn-back-groups').addEventListener('click', () => {
     grupoActual = null;
     showView('groups');
 });
 
-// ===================================================
-// MODAL
-// ===================================================
+
 let _onSaveCallback = null;
 
 /** Abre el modal con los datos del partido */
@@ -65,7 +61,7 @@ function openModal({ subtitle, homeCode, homeName, awayCode, awayName, currentRe
     document.getElementById('modal-away-code').textContent  = awayCode;
     document.getElementById('modal-away-name').textContent  = awayName;
 
-    // Si ya tiene resultado, pre-rellenar
+    // Si ya tiene resultado solo pre-rellenar
     const homeInput = document.getElementById('modal-home-score');
     const awayInput = document.getElementById('modal-away-score');
     homeInput.value = currentResult ? currentResult.homeGoals : 0;
@@ -106,7 +102,6 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeModal();
 });
 
-// HELPER: mostrar una vista y ocultar las demás
 
 function showView(viewName) {
     Object.values(vistas).forEach(v => v.classList.remove('view--active'));
