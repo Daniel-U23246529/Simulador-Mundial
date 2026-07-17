@@ -1,8 +1,4 @@
-// ===================================================
-// GROUPS.JS — Renderizado y lógica de la fase de grupos
-// ===================================================
 
-// ---- Render: vista resumen (4 tarjetas de grupo) ----
 function renderGroupsSummary() {
     Object.keys(TOURNAMENT.groups).forEach(gKey => {
         const standings = calcStandings(gKey);
@@ -24,7 +20,6 @@ function renderGroupsSummary() {
     });
 }
 
-// ---- Render: vista detalle de un grupo ----
 function renderGroupDetail(groupKey) {
     const group = TOURNAMENT.groups[groupKey];
 
@@ -89,7 +84,7 @@ function renderGroupDetail(groupKey) {
     renderStandingsTable(groupKey);
 }
 
-// ---- Render: tabla de posiciones ----
+
 function renderStandingsTable(groupKey) {
     const standings = calcStandings(groupKey);
     const tbody = document.getElementById('standings-body');
